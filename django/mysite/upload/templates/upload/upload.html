@@ -1,0 +1,21 @@
+{% extends 'upload/base.html' %}
+
+{% block title %}
+{% if heading %}
+{{ heading }}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% if heading %}
+<h1>{{ heading }}</h1>
+{% endif %}
+
+{% comment %} <form action="{% url 'upload_file' %}" method="post" enctype="multipart/form-data"> {% endcomment %}
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input class="btn btn-info" type="submit" value="submit">
+    <input class="btn btn-info" type="reset" value="reset">
+</form>
+{% endblock %}
