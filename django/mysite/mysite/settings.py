@@ -41,7 +41,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'upload.apps.UploadConfig',      # 注册upload应用
+    'captcha',
 ]
+
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
+CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_dots',)
+CAPTCHA_FONT_SIZE = 24
+CAPTCHA_BACKGROUND_COLOR = '#FFFFFF'
+CAPTCHA_FOREGROUND_COLOR = '#000000'
+CAPTCHA_MATH_CHALLENGE_OPERATOR = '+'
+CAPTCHA_LETTER_ROTATION = None
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

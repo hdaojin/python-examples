@@ -23,4 +23,5 @@ urlpatterns = [
     path('upload/', include('upload.urls')),
     path('polls/', include('polls.urls')),
     path('articles/', include('articles.urls')),
+    path('captcha/', include('captcha.urls')),
 ]

@@ -1,9 +1,8 @@
-from ntpath import join
 from re import T
 from django.db import models
 from datetime import date
-from pathlib import PurePath
 from os import path
+from django.core.files.storage import FileSystemStorage
 
 #import uuid
 
@@ -55,9 +54,18 @@ def user_dierctory_path(instance, filename):
     return path.join("log_files", log_date.split('.')[0], log_date.split('.')[1], log_date.split('.')[2], filename)
 
 
+class OverwriteStorage(FileSystemStorage):
+    def get_available_name(self, name, max_length=None):
+        if self.exists(name):
+            self.delete(name)
+        return name
+
+
 class UploadFileModel(models.Model):
     author_name = models.CharField(
         max_length=10,
+        null=False,
+        blank=False,
         verbose_name="作者"
     )
     author_role = models.CharField(
@@ -79,7 +87,9 @@ class UploadFileModel(models.Model):
     )
     log_file = models.FileField(
         upload_to=user_dierctory_path,
-        null=True,
+        storage=OverwriteStorage(),
+        null=False,
+        # unique=True,
         help_text="只能上传doc, docx, pdf格式的文件。",
         verbose_name="文件"
     )
