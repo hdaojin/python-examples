@@ -1,0 +1,8 @@
+li a {
+    color: green;
+    border: none;    
+}
+
+body {
+    background: white url(/static/polls/images/bg.jpg) repeat center center fixed;
+}

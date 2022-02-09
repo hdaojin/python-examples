@@ -12,10 +12,62 @@
 {% endif %}
 
 {% comment %} <form action="{% url 'upload_file' %}" method="post" enctype="multipart/form-data"> {% endcomment %}
-<form action="" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input class="btn btn-info" type="submit" value="submit">
-    <input class="btn btn-info" type="reset" value="reset">
-</form>
-{% endblock %}
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% comment %} {{ form.as_p }} {% endcomment %}
+
+        {{ form.non_field_errors }}
+
+        <!--手动渲染姓名文本框表单-->
+        <div class="mt-3 col-lg-3">
+            {{ form.author_name.errors }}
+            {{ form.author_name }}
+        </div>
+
+        <!--手动渲染角色单选框表单-->
+        <div class="mt-3" >
+        {{ form.author_role.errors }}
+        {% comment %} {{ form.role.label_tag }} {% endcomment %}
+        {% for choice in form.author_role %}
+            <div class="form-check form-check-inline">
+                {% comment %} <label class="form-check-label" for="{{ choice.id_for_label }}">
+                    {{ choice.tag }}{{ choice.choice_label }}
+                </label> {% endcomment %}
+                {{ choice }}
+            </div>
+        {% endfor %}
+        </div>
+
+        <!--手动渲染上传日期表单-->
+        <div class="mt-3 col-lg-3">
+           {{ form.log_date.errors }}
+           {{ form.log_date }}
+        </div>
+
+
+        <!--手动渲染班级选择框表单-->
+        <div class="mt-3 col-lg-6">
+            {{ form.class_type.errors }}
+            {{ form.class_type }}
+        </div>
+
+        <!--手动渲染模块列表表单-->
+        <div class="mt-3 col-lg-3">
+            {{ form.module_list.errors }}
+            {{ form.module_list }}
+        </div>
+
+        <!--手动渲染文件上传表单-->
+        <div class="mt-3 col-lg-6">
+            {{ form.log_file.errors }}
+            {{ form.log_file }}
+            <p class="text-info">{{ form.log_file.help_text }}</p>
+        </div>
+
+        <!--提交按钮表单-->
+        <div class="mt-3">
+            <input class="btn btn-info me-2" type="submit" value="提交">
+            <input class="btn btn-info" type="reset" value="重置">
+        </div>
+    </form>
+    {% endblock %}
