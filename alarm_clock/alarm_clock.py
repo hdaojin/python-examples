@@ -1,15 +1,25 @@
 from pathlib import Path
 import time
+import platform
+import winsound
 
 # third party modules
-from playsound import playsound
+# from playsound import playsound
 from tqdm import tqdm
 
 
-base_dir = Path(__file__).resolve().parent 
-sound_file = base_dir / 'alarm.wav'
+# base_dir = Path(__file__).resolve().parent 
+# sound_file = base_dir / 'alarm.wav'
 
+sound_file = 'alarm.wav'
 
+def play_sound(sound_file):
+    if platform.system() == 'Windows':
+        winsound.PlaySound(sound_file, winsound.SND_FILENAME | winsound.SND_ASYNC)
+    if platform.system() == 'Linux':
+        pass
+    else:
+        pass
 # scale = 50
 
 # def progress_bar(scale):
@@ -44,4 +54,4 @@ while True:
     print("The next alarm time is:", time.strftime("%Y-%m-%d %H:%M:%S", time_next))
     # time.sleep(time_interval)
     progress_bar(time_interval)
-    playsound(sound_file)
+    play_sound(sound_file)
