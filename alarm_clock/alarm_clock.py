@@ -1,7 +1,17 @@
-from pathlib import Path
+"""
+name: alarm_clock.py
+description: An alarm clock that remaind you to do something every once in a while.
+author: hdaojin
+version: 1.0.0
+creation date: 2022-05-16
+last modified: 2022-10-20
+usage: python3 alarm_clock.py
+"""
+
+import os
 import time
 import platform
-import winsound
+from pathlib import Path
 
 # third party modules
 # from playsound import playsound
@@ -15,7 +25,10 @@ sound_file = 'alarm.wav'
 
 def play_sound(sound_file):
     if platform.system() == 'Windows':
+        import winsound
         winsound.PlaySound(sound_file, winsound.SND_FILENAME | winsound.SND_ASYNC)
+    if platform.system() == 'Darwin':
+        os.system('afplay ' + sound_file)
     if platform.system() == 'Linux':
         pass
     else:
@@ -45,13 +58,17 @@ def progress_bar(scale):
 time_interval = int(input("Enter time interval in seconds: "))
 alarm_count = 0
 
-while True:
-    alarm_count += 1
-    time_now = time.localtime()
-    time_next = time.localtime(time.time() + time_interval)
-    print(f"{alarm_count} times to alarm.")
-    print("The current time is:   ", time.strftime("%Y-%m-%d %H:%M:%S", time_now))
-    print("The next alarm time is:", time.strftime("%Y-%m-%d %H:%M:%S", time_next))
-    # time.sleep(time_interval)
-    progress_bar(time_interval)
-    play_sound(sound_file)
+try:
+    while True:
+        alarm_count += 1
+        time_now = time.localtime()
+        time_next = time.localtime(time.time() + time_interval)
+        print(f"{alarm_count} times to alarm.")
+        print("The current time is:   ", time.strftime("%Y-%m-%d %H:%M:%S", time_now))
+        print("The next alarm time is:", time.strftime("%Y-%m-%d %H:%M:%S", time_next))
+        # time.sleep(time_interval)
+        progress_bar(time_interval)
+        play_sound(sound_file)
+except KeyboardInterrupt:
+    print("Alarm clock stopped.")
+
