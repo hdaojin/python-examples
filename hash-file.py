@@ -16,8 +16,9 @@ def hash_sum(path):
 
 
     def hash_file(path, blocksize=1 << 20):
-        # type: (Text, int) -> Tuple[Any, int]
-        """Return (hash, length) for path using hashlib.sha256()
+        """ type: (Text, int) -> Tuple[Any, int]"""
+        """
+        Return (hash, length) for path using hashlib.sha256()
         """
         h = hashlib.sha256()
         length = 0
